@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Error</title>
+        <%- include("partials/imports.ejs"); %>
+    </head>
+    <body>
+        <div class="container py-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title fs-3 fw-bold">There was an error</div>
+                    <div class="card-subtitle fs-6 text-body-secondary">
+                        Please contact the website's admin if the error persists
+                    </div>
+                </div>
+
+                <div class="card-body"><%= locals.errorMessage ? errorMessage : "Internal Server Error"; %></div>
+            </div>
+        </div>
+    </body>
+</html>

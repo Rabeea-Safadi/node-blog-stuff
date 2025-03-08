@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Feed</title>
+        <%- include("partials/imports.ejs"); %>
+    </head>
+    <body>
+        <div class="container py-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title fs-3 fw-bold">Welcome to your feed</div>
+                    <div class="card-subtitle fs-6 text-body-secondary">Where all your data resides</div>
+                </div>
+
+                <% if (locals.user == undefined) { %> 
+                    <div class="card-body">
+                        <div class="text-danger fs-4">
+                            We are having issues getting your data 
+                            <br />
+                            Please contact the admin 
+                        </div>
+                    </div>
+                <% } %>
+
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-text">Username</div>
+                        <input type="text" class="form-control" readonly value="<%= user.username; %>">
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-group-text">Creation Date</div>
+                        <input type="text" class="form-control" readonly value="<%= new Intl.DateTimeFormat("en-IL").format(new Date(user.createdAt)); %>">
+                    </div>
+                </div>
+                
+                <div class="card-footer py-3">
+                    <div class="vstack gap-3">
+                        <a href="/add-blog" class="btn btn-primary w-100">Add a new blog</a>
+                        <a href="/log-out" class="logout-btn btn btn-primary w-100">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container my-4">
+            <div class="card-title fs-3 mb-3">Your 5 latest blogs</div>
+
+            <div class="card-body">
+                <% if (locals.userBlogs != undefined) { %> 
+                    <% for (let blog of userBlogs) { %>
+                        <div class="vstack gap-2 card">
+                            <div class="card-header">
+                                <div class="card-title fs-5 fw-bold">
+                                    <%= blog.blogTitle; %>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <%- blog.blogContent; %>
+                            </div>
+                        </div> 
+                    <% } %>
+                <% } %>
+            </div>
+        </div>
+
+        <script>
+            document.querySelector(".logout-btn").addEventListener("click", async (event) => {
+                event.preventDefault();
+                
+                const result = await Swal.fire({
+                    theme: "dark",
+                    icon: "warning",
+                    title: "Are you sure?",
+                    showCancelButton: true,
+                    confirmButtonText: "Logout",
+                    cancelButtonText: "Cancel",
+                    customClass: {
+                        confirmButton: "btn btn-primary",
+                        cancelButton: "btn btn-secondary"
+                    }
+                });
+
+                if (result.isConfirmed) {
+                    window.location.href = "/log-out"
+                }
+            })
+        </script>
+    </body>
+</html>

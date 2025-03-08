@@ -1,0 +1,21 @@
+{
+  "name": "web-app",
+  "version": "1.0.0",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node .",
+    "dev": "node --watch ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cookie-session": "^2.1.0",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "sequelize": "^6.37.6",
+    "sqlite3": "^5.1.7"
+  }
+}

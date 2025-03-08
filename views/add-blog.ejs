@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Feed | Add a blog</title>
+        <%- include("partials/imports.ejs"); %>
+    </head>
+    <body>
+        <div class="container py-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title fs-3 fw-bold">Welcome to the blog creator</div>
+                    <div class="card-subtitle fs-6 text-body-secondary">Please fill up all the fields required here</div>
+                </div>
+
+                <div class="card-body">
+                    <% if (locals.user == undefined) { %> 
+                        <div class="text-danger fs-4">
+                            We are having issues getting your data 
+                            <br />
+                            Please contact the admin 
+                        </div>
+                    <% } %>
+
+                    <form action="/api/create-blog" method="post" class="row row-gap-3">
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input type="text" name="blogTitle" id="blogTitle" class="form-control" placeholder="">
+                                <label for="blogTitle">Blog Title</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="blogContent">Blog Content</label>
+                            <textarea type="text" name="blogContent" id="blogContent" class="w-100 form-wysiwyg" style="height: 250px" placeholder=""></textarea>
+                        </div>
+
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary w-100">Add Blog</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card-body">
+                    <div class="vstack gap-3">
+                        <a href="/feed" class="btn btn-primary w-100">Go back to your feed</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            tinymce.init({
+                selector: ".form-wysiwyg",
+                skin: "oxide-dark"
+            });
+        </script>
+    </body>
+</html>
